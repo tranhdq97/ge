@@ -24,11 +24,9 @@ export default {
   },
   actions: {
     async signUp({ state }: { state: IFState }, user: IFStaff) {
-      console.log("TOKEN SIGNUP");
       await axios.post(EAStaff.CREATE, user);
     },
     async signIn({ dispatch }: { dispatch: Dispatch }, user: IFStaff) {
-      console.log("TOKEN SIGNIN");
       const res: IFToken = await axios.post(EAAuth.TOKEN, user);
       cookies.set(EToken.ACCESS, res.access);
       cookies.set(EToken.REFRESH, res.refresh);
