@@ -11,7 +11,7 @@ import { ESAuth } from "./enums/store";
 import { ERouter } from "./enums/routers";
 
 const { cookies } = useCookies();
-axios.defaults.baseURL = "http://dongquoctranh.pythonanywhere.com/api/";
+axios.defaults.baseURL = "https://dongquoctranh.pythonanywhere.com/api/";
 
 // Unauthenticated
 axios.interceptors.request.use(
