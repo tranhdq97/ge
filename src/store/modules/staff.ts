@@ -49,6 +49,7 @@ export default {
           type: t(toUnderscore(item?.type?.name || "", true)),
           dob: toDMY(item?.profile?.dob as Date, "/"),
           sex: item?.profile?.sex?.name as string,
+          citizen_number: item?.profile?.citizen_number as string,
           address: concatList(
             [
               item?.profile?.address?.street,
@@ -78,6 +79,13 @@ export default {
     isPrevious: (state: IFState) => state.currentPage > 1,
   },
   actions: {
+    async getStaff({ state }: { state: IFState }, id: number) {
+      const url = formURL(EAStaff.DETAIL, [
+        { key: ERouterParams.INDEX, value: id },
+      ]);
+      const res: IFStaff = await authAxios.get(url);
+      return res;
+    },
     async getStaffs({ state }: { state: IFState }) {
       const res: IAListRes = await authAxios.get(EAStaff.LIST);
       state.staffList = res.results as IFStaff[];

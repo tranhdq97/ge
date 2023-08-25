@@ -72,6 +72,7 @@ const messages = {
     drinks: "drinks",
     appetizer: "appetizer",
     main_course: "main course",
+    personal_information: "personal information",
   },
   vi: {
     id: "#",
@@ -144,6 +145,7 @@ const messages = {
     drinks: "đồ uống",
     appetizer: "món khai vị",
     main_course: "món chính",
+    personal_information: "thông tin cá nhân",
   },
 };
 

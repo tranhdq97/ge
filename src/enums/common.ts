@@ -43,6 +43,7 @@ export enum ECommon {
   MEAL_TYPE = "meal_type",
   ROLE = "role",
   PHOTO = "photo",
+  PERSONAL_INFORMATION = "personal_information",
 }
 
 export enum EPlaceHolder {

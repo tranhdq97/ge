@@ -35,6 +35,7 @@ export interface IFProfile {
   dob?: Date;
   address?: IFAddress;
   sex?: IFMasterData;
+  citizen_number?: string;
 }
 
 export interface IFToken {

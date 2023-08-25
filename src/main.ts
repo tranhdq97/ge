@@ -9,27 +9,31 @@ import authAxios from "./auth_axios";
 import { EToken } from "./enums/common";
 import { ESAuth } from "./enums/store";
 import { ERouter } from "./enums/routers";
+import i18n from "./i18n";
 
 const { cookies } = useCookies();
-axios.defaults.baseURL = "https://dongquoctranh.pythonanywhere.com/api/";
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "production"
+    ? "https://dongquoctranh.pythonanywhere.com/api/"
+    : "http://127.0.0.1:8000/api/";
 
 // Unauthenticated
 axios.interceptors.request.use(
   function (config: InternalAxiosRequestConfig) {
     return config;
   },
-  function (error) {
-    alert(error.message);
-    return Promise.reject(error);
+  function (err) {
+    alert(err.request.data.message);
+    return Promise.reject(err);
   }
 );
 axios.interceptors.response.use(
   function (config) {
     return config.data;
   },
-  function (error) {
-    alert(error.message);
-    return Promise.reject(error);
+  function (err) {
+    alert(err.response.data.message);
+    return Promise.reject(err);
   }
 );
 // Authenticated
@@ -38,32 +42,32 @@ authAxios.interceptors.request.use(
     config.headers.Authorization = "Bearer " + cookies.get(EToken.ACCESS);
     return config;
   },
-  function (error: { message: any }) {
-    alert(error.message);
-    return Promise.reject(error);
+  function (err) {
+    alert(err.request.data.message);
+    return Promise.reject(err);
   }
 );
 authAxios.interceptors.response.use(
   function (config: { data: any }) {
     return config.data;
   },
-  async function (error: {
-    response: { status: number };
+  async function (err: {
+    response: { status: number; data: { message: string } };
     config: any;
     message: any;
   }) {
-    if (error.response.status === 401) {
+    if (err.response.status === 401) {
       if (cookies.get(EToken.REFRESH)) {
         await store.dispatch(ESAuth.A_REFRESH);
-        if (cookies.get(EToken.ACCESS)) return authAxios(error.config);
+        if (cookies.get(EToken.ACCESS)) return authAxios(err.config);
       }
       store.commit(ESAuth.M_REMOVE_CURRENT_USER);
       router.push(ERouter.SIGNIN);
       return;
     }
-    alert(error.message);
-    return Promise.reject(error);
+    alert(err.response.data.message);
+    return Promise.reject(err);
   }
 );
 
-createApp(App).use(store).use(router).mount("#app");
+createApp(App).use(i18n).use(store).use(router).mount("#app");

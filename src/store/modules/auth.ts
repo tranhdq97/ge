@@ -30,7 +30,7 @@ export default {
       const res: IFToken = await axios.post(EAAuth.TOKEN, user);
       cookies.set(EToken.ACCESS, res.access);
       cookies.set(EToken.REFRESH, res.refresh);
-      await dispatch(ESAuth.A_GET_ME, {}, { root: true });
+      return await dispatch(ESAuth.A_GET_ME, {}, { root: true });
     },
     signOut({ commit }: { commit: Commit }) {
       cookies.remove(EToken.ACCESS);
@@ -48,6 +48,7 @@ export default {
     async getMe({ commit }: { commit: Commit }) {
       const user: IFStaff = await authAxios.get(EAAuth.GET_ME);
       commit(ESAuth.M_SET_USER, user, { root: true });
+      return user;
     },
   },
   mutations: {

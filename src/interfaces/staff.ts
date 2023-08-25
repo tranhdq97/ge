@@ -19,4 +19,5 @@ export interface IFStaffRep {
   dob: string;
   sex: string;
   address: string;
+  citizen_number: string;
 }

@@ -6,7 +6,7 @@ import VHome from "@/views/VHome.vue";
 // import VTables from "@/views/VTables.vue";
 // import VTable from "@/views/VTable.vue";
 // import VStaffs from "@/views/VStaffs.vue";
-// import VStaff from "@/views/VStaff.vue";
+import VStaff from "@/views/VStaff.vue";
 // import VMenu from "@/views/VMenu.vue";
 // import VMeal from "@/views/VMeal.vue";
 import { ERouter, ERouterName } from "@/enums/routers";
@@ -16,6 +16,7 @@ import { ESAuth } from "@/enums/store";
 import { IFStaff } from "@/interfaces/staff";
 import store from "@/store";
 import i18n from "@/i18n";
+import { EIDStaffType } from "@/enums/value_id";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -72,16 +73,15 @@ const routes: Array<RouteRecordRaw> = [
   //     notAllowedRoles: [EIDStaffType.UNAPPROVED, EIDStaffType.EMPLOYEE],
   //   },
   // },
-  // {
-  //   path: ERouter.STAFF,
-  //   name: ERouterName.STAFF,
-  //   component: VStaff,
-  //   meta: {
-  //     authRequired: true,
-  //     notAllowedRoles: [EIDStaffType.UNAPPROVED],
-  //     selfViewRoles: [EIDStaffType.EMPLOYEE],
-  //   },
-  // },
+  {
+    path: ERouter.STAFF,
+    name: ERouterName.STAFF,
+    component: VStaff,
+    meta: {
+      authRequired: true,
+      selfViewRoles: [EIDStaffType.EMPLOYEE],
+    },
+  },
   // {
   //   path: ERouter.MENU,
   //   name: ERouterName.MENU,

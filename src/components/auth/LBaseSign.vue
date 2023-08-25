@@ -19,6 +19,8 @@ import { ESAuth } from "@/enums/store";
 import { useRouter } from "vue-router";
 import { ERouter } from "@/enums/routers";
 import { EIDAuthType } from "@/enums/value_id";
+import { formRouter } from "@/util/route";
+import { ERouterParams } from "@/enums/common";
 
 export default defineComponent({
   components: { CEnterField, CButton },
@@ -32,11 +34,19 @@ export default defineComponent({
     const email = ref("");
     const password = ref("");
     async function signin() {
-      await store.dispatch(ESAuth.A_SIGN_IN, {
+      const res = await store.dispatch(ESAuth.A_SIGN_IN, {
         email: email.value,
         password: password.value,
       });
-      router.push(ERouter.HOME);
+      if (!res.profile) {
+        const user = store.getters[ESAuth.G_USER];
+        const staffRouter = formRouter(ERouter.STAFF, [
+          { key: ERouterParams.INDEX, value: user.id },
+        ]);
+        router.push(staffRouter);
+      } else {
+        router.push(ERouter.HOME);
+      }
     }
     async function signup() {
       await store.dispatch(ESAuth.A_SIGN_UP, {

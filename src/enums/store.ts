@@ -86,6 +86,7 @@ export enum ESStaff {
   G_IS_NEXT = "staff/isNext",
   G_IS_PREVIOUS = "staff/isPrevious",
   A_GET_STAFFS = "staff/getStaffs",
+  A_GET_STAFF = "staff/getStaff",
   A_NEXT_PAGE = "staff/nextPage",
   A_PREVIOUS_PAGE = "staff/previousPage",
   A_UPDATE_STAFF = "staff/updateStaff",
