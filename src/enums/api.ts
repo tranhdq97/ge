@@ -29,12 +29,12 @@ export enum EAMaster {
   DELETE = "master/:master_name/:id/list",
 }
 
-export enum EAMenu {
-  CREATE = "menu/create",
-  LIST = "menu/list",
-  DETAIL = "menu/:id/detail",
-  UPDATE = "menu/:id/update",
-  DELETE = "menu/:id/delete",
+export enum EAItem {
+  CREATE = "item/create",
+  LIST = "item/list",
+  DETAIL = "item/:id/detail",
+  UPDATE = "item/:id/update",
+  DELETE = "item/:id/delete",
 }
 
 export enum EAOrder {
@@ -72,4 +72,6 @@ export enum EATable {
   DETAIL = "table/:id/detail",
   UPDATE = "table/:id/update",
   DELETE = "table/:id/delete",
+  JOIN_TABLE = "table/:id/staff_in",
+  OUT_TABLE = "table/:id/staff_out",
 }

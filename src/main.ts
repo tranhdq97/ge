@@ -9,9 +9,15 @@ import authAxios from "./auth_axios";
 import { EToken } from "./enums/common";
 import { ESAuth } from "./enums/store";
 import { ERouter } from "./enums/routers";
+import "element-ui/lib/theme-chalk/index.css";
+import ElementPlus from "element-plus";
 
 const { cookies } = useCookies();
-axios.defaults.baseURL = "https://dongquoctranh.pythonanywhere.com/api/";
+const newLocal = "/";
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "production"
+    ? "https://dongquoctranh.pythonanywhere.com/api/"
+    : "http://127.0.0.1:8000/api/";
 
 // Unauthenticated
 axios.interceptors.request.use(
@@ -66,4 +72,4 @@ authAxios.interceptors.response.use(
   }
 );
 
-createApp(App).use(store).use(router).mount("#app");
+createApp(App).use(store).use(router).use(ElementPlus).mount("#app");
