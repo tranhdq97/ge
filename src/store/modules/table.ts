@@ -1,7 +1,7 @@
 import authAxios from "@/auth_axios";
 import { EATable } from "@/enums/api";
 import { ERouterParams } from "@/enums/common";
-import { ESOrder, ESOrderItem, ESTable } from "@/enums/store";
+import { ESCart, ESItem, ESOrder, ESOrderItem, ESTable } from "@/enums/store";
 import { IAListRes } from "@/interfaces/api";
 import { IFTable } from "@/interfaces/tables";
 import { addPaddingNumber } from "@/util/common";
@@ -39,7 +39,7 @@ export default {
       state: IFState;
       dispatch: Dispatch;
     }) {
-      const tableRes: IAListRes = await axios.get(EATable.LIST);
+      const tableRes: IAListRes = await authAxios.get(EATable.LIST);
       state.tables = tableRes.results as Array<IFTable>;
       if (state.tables) {
         const orders = await dispatch(
@@ -82,6 +82,39 @@ export default {
       await authAxios.put(URL, params.updateData);
       params.table = { ...params.table, ...params.updateData };
       return params.table;
+    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async joinTable({ state }: { state: IFState }, id: number) {
+      const URL = formURL(EATable.JOIN_TABLE, [
+        {
+          key: ERouterParams.INDEX,
+          value: id,
+        },
+      ]);
+      await authAxios.put(URL);
+    },
+    async outTable(
+      { state, dispatch }: { state: IFState; dispatch: any },
+      id: number
+    ) {
+      const URL = formURL(EATable.OUT_TABLE, [
+        {
+          key: ERouterParams.INDEX,
+          value: id,
+        },
+      ]);
+      await authAxios.put(URL);
+      dispatch("getTables");
+    },
+    async getOrder(
+      { state, dispatch }: { state: IFState; dispatch: any },
+      tableId: number
+    ) {
+      const URL = formURL(EATable.GET_ORDER, [
+        { key: ERouterParams.INDEX, value: tableId },
+      ]);
+      const res = await authAxios.get(URL);
+      dispatch(ESCart.A_SET_MEALS, res);
     },
   },
   mutations: {

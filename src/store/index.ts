@@ -1,7 +1,7 @@
 import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import sideBar from "./modules/sideBar";
-import menu from "./modules/menu";
+import item from "./modules/item";
 import order from "./modules/order";
 import order_item from "./modules/order_item";
 import table from "./modules/table";
@@ -17,7 +17,7 @@ import file_management from "./modules/file_management";
 export default createStore({
   modules: {
     sideBar,
-    menu,
+    item,
     order,
     order_item,
     table,

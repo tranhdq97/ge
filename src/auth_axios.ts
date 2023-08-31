@@ -2,7 +2,10 @@ import axios, { AxiosInstance } from "axios";
 
 // Authenticated Axios Configurations
 const authAxios: AxiosInstance = axios.create({
-  baseURL: "https://dongquoctranh.pythonanywhere.com/api/",
+  baseURL:
+    process.env.NODE_ENV === "production"
+      ? "https://dongquoctranh.pythonanywhere.com/api/"
+      : "http://127.0.0.1:8000/api/",
   timeout: 5000,
 });
 
