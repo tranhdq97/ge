@@ -48,7 +48,7 @@ export enum EAOrderItem {
   CREATE = "order_item/create",
   LIST = "order_item/list",
   DETAIL = "order_item/:id/detail",
-  UPDATE = "order_item/:id/update",
+  UPDATE = "order_item/:id",
   DELETE = "order_item/:id/delete",
 }
 export enum EAProfile {
@@ -74,4 +74,5 @@ export enum EATable {
   DELETE = "table/:id/delete",
   JOIN_TABLE = "table/:id/staff_in",
   OUT_TABLE = "table/:id/staff_out",
+  GET_ORDER = "table/:id/order_items",
 }

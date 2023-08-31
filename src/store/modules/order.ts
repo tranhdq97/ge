@@ -1,8 +1,8 @@
 import authAxios from "@/auth_axios";
-import { EAOrder } from "@/enums/api";
+import { EAOrder, EATable } from "@/enums/api";
 import { ERouterParams } from "@/enums/common";
 import { EPCommon, EPOrder } from "@/enums/params";
-import { ESCustomer, ESOrder, ESTable } from "@/enums/store";
+import { ESCart, ESCustomer, ESItem, ESOrder, ESTable } from "@/enums/store";
 import { IAListRes } from "@/interfaces/api";
 import { IFOrder } from "@/interfaces/order";
 import { IFTable } from "@/interfaces/tables";
@@ -31,6 +31,14 @@ export default {
     },
   },
   actions: {
+    async order(
+      { state, dispatch }: { state: IFState; dispatch: any },
+      params: { table_id: number; order_items: Array<object> }
+    ) {
+      await authAxios.post(EAOrder.CREATE, params);
+      dispatch(ESCart.A_GET_ORDER_ITEMS, params.table_id, { root: true });
+      dispatch(ESItem.A_RESET_QUANTITY, null, { root: true });
+    },
     async addOrder(
       { state, commit }: { state: IFState; commit: Commit },
       order: IFOrder

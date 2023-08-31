@@ -1,6 +1,12 @@
 import authAxios from "@/auth_axios";
 import { EAOrder, EAOrderItem } from "@/enums/api";
-import { ESCustomer, ESOrder, ESOrderItem, ESTable } from "@/enums/store";
+import {
+  ESCart,
+  ESCustomer,
+  ESOrder,
+  ESOrderItem,
+  ESTable,
+} from "@/enums/store";
 import { IFCustomer } from "@/interfaces/customer";
 import { IFMenuItem } from "@/interfaces/menu";
 import { IFOrderItem, IFOrder } from "@/interfaces/order";
@@ -262,6 +268,23 @@ export default {
       params.orderItems.map((item) =>
         commit(ESOrderItem.M_REMOVE_ORDER_ITEM, item, { root: true })
       );
+    },
+    async changeQuantity(
+      { state, dispatch }: { state: IFState; dispatch: any },
+      params: { id: number; data: object }
+    ) {
+      const { id, data } = params;
+
+      const URL = formURL(EAOrderItem.UPDATE, [
+        { key: ERouterParams.INDEX, value: id },
+      ]);
+      await authAxios.put(URL, data);
+    },
+    async remove({ state }: { state: IFState }, id: number) {
+      const URL = formURL(EAOrderItem.DELETE, [
+        { key: ERouterParams.INDEX, value: id },
+      ]);
+      await authAxios.delete(URL);
     },
   },
   mutations: {

@@ -1,7 +1,7 @@
 import authAxios from "@/auth_axios";
 import { EATable } from "@/enums/api";
 import { ERouterParams } from "@/enums/common";
-import { ESOrder, ESOrderItem, ESTable } from "@/enums/store";
+import { ESCart, ESItem, ESOrder, ESOrderItem, ESTable } from "@/enums/store";
 import { IAListRes } from "@/interfaces/api";
 import { IFTable } from "@/interfaces/tables";
 import { addPaddingNumber } from "@/util/common";
@@ -105,6 +105,16 @@ export default {
       ]);
       await authAxios.put(URL);
       dispatch("getTables");
+    },
+    async getOrder(
+      { state, dispatch }: { state: IFState; dispatch: any },
+      tableId: number
+    ) {
+      const URL = formURL(EATable.GET_ORDER, [
+        { key: ERouterParams.INDEX, value: tableId },
+      ]);
+      const res = await authAxios.get(URL);
+      dispatch(ESCart.A_SET_MEALS, res);
     },
   },
   mutations: {

@@ -11,6 +11,7 @@ import { ESAuth } from "./enums/store";
 import { ERouter } from "./enums/routers";
 import "element-ui/lib/theme-chalk/index.css";
 import ElementPlus from "element-plus";
+import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
 const { cookies } = useCookies();
 const newLocal = "/";
@@ -71,5 +72,8 @@ authAxios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-createApp(App).use(store).use(router).use(ElementPlus).mount("#app");
+const app = createApp(App);
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component);
+}
+app.use(store).use(router).use(ElementPlus).mount("#app");

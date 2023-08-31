@@ -1,47 +1,41 @@
 <template>
   <el-row :gutter="12">
-    <el-col
-      :sx="24"
-      :sm="12"
-      :md="8"
-      :lg="6"
-      :xl="4"
-      v-for="meal in meals"
-      :key="meal.id"
-      class="my-1"
-    >
-      <el-card>
-        <h1 class="fw-bold">{{ meal.name }}</h1>
-        <div style="padding: 14px">
-          <el-button v-if="isOrdered(meal.id)" type="success" circle
-            ><i class="el-icon-check"></i
-          ></el-button>
-          <el-button v-else type="primary" @click="addMeal(meal)"
-            >Add</el-button
-          >
-        </div>
-      </el-card>
-    </el-col>
+    <c-meal v-for="meal in meals" :key="meal.id" :meal="meal" />
   </el-row>
 </template>
 
 <script lang="ts">
-import { ESCart } from "@/enums/store";
-import { defineComponent } from "vue";
+import { ESCart, ESItem } from "@/enums/store";
+import { computed, defineComponent, reactive, watch } from "vue";
 import { useStore } from "vuex";
+import CMeal from "./CMeal.vue";
 
 export default defineComponent({
+  components: { CMeal },
   props: ["meals"],
-  setup() {
+  setup(props) {
     const store = useStore();
     const addMeal = (meal: any) => {
       store.dispatch(ESCart.A_ADD_MEAL, meal);
     };
-    const isOrdered = (id: number) => {
-      const mealOrdered = store.getters[ESCart.G_MEALS];
-      return mealOrdered.find((meal: any) => meal.id === id);
+    const state = reactive({
+      quantityInput: {},
+    });
+    watch(
+      () => props.meals,
+      () => {
+        state.quantityInput = props.meals.reduce(
+          (acc: any, meal: any) => ((acc[meal.id] = 0), acc),
+          {}
+        );
+      },
+      { deep: true }
+    );
+    const handleChangeQuantity = (id: any, quantity: any) => {
+      store.dispatch(ESItem.A_CHANGE_QUANTITY, { id, quantity });
     };
-    return { addMeal, isOrdered };
+
+    return { addMeal, state, handleChangeQuantity };
   },
 });
 </script>
