@@ -4,11 +4,16 @@ export enum ESSideBar {
   A_COLLAPSE_SIDEBAR = "sideBar/collapseSideBar",
 }
 
-export enum ESMenu {
-  G_MENU = "menu/menu",
-  G_AVAILABLE_MENU = "menu/availableMenu",
-  A_GET_MENU = "menu/getMenu",
-  A_ADD_MEAL = "menu/addMeal",
+export enum ESItem {
+  G_ALL_MEALS = "item/allMeals",
+  G_MEALS = "item/meals",
+  G_AVAILABLE_MENU = "item/availableItem",
+  A_GET_MEALS = "item/getMeals",
+  A_ADD_MEAL = "item/addMeal",
+  A_CHANGE_QUANTITY = "item/changeQuantity",
+  A_CHANGE_KEYWORD = "item/changeKeyword",
+  A_CHANGE_QUANTITY_SEARCH = "item/changeQuantitySearch",
+  A_RESET_QUANTITY = "item/resetQuantity",
 }
 
 export enum ESOrderItem {
@@ -25,6 +30,8 @@ export enum ESOrderItem {
   A_PAY = "order_item/pay",
   M_REMOVE_ORDER_ITEM = "order_item/removeOrderItem",
   M_UPDATE = "order_item/update",
+  A_CHANGE_QUANTITY = "order_item/changeQuantity",
+  A_REMOVE = "order_item/remove",
 }
 
 export enum ESOrder {
@@ -37,6 +44,7 @@ export enum ESOrder {
   A_UPDATE_ORDER = "order/updateOrder",
   M_REMOVE_ORDER = "order/removeOrder",
   M_UPDATE = "order/update",
+  A_ORDER = "order/order",
 }
 
 export enum ESTable {
@@ -46,6 +54,8 @@ export enum ESTable {
   A_GET_TABLES = "table/getTables",
   A_GET_TABLE = "table/getTable",
   A_UPDATE_TABLE = "table/updateTable",
+  A_JOIN_TABLE = "table/joinTable",
+  A_OUT_TABLE = "table/outTable",
   A_INIT_TABLE = "table/initTable",
   M_UPDATE_TABLE = "table/update",
 }
@@ -106,6 +116,14 @@ export enum ESMenuType {
 
 export enum ESCart {
   G_IS_IN_CART = "cart/isInCart",
+  G_MEALS = "cart/meals",
+  G_TOTAL_QUANTITY = "cart/totalQuantity",
+  G_ORDER_ITEMS = "cart/orderItems",
+  A_ADD_MEAL = "cart/addMeal",
+  A_CHANGE_QUANTITY = "cart/changeQuantity",
+  A_REMOVE = "cart/remove",
+  A_SET_MEALS = "cart/setMeals",
+  A_GET_ORDER_ITEMS = "cart/getOrderItems",
 }
 
 export enum ESFileManagement {

@@ -3,8 +3,8 @@ import VSignUp from "@/views/VSignUp.vue";
 import VSignIn from "@/views/VSignIn.vue";
 import VHome from "@/views/VHome.vue";
 // import VSetting from "@/views/VSetting.vue";
-// import VTables from "@/views/VTables.vue";
-// import VTable from "@/views/VTable.vue";
+import VTables from "@/views/VTables.vue";
+import VTable from "@/views/VTable.vue";
 // import VStaffs from "@/views/VStaffs.vue";
 // import VStaff from "@/views/VStaff.vue";
 // import VMenu from "@/views/VMenu.vue";
@@ -16,6 +16,7 @@ import { ESAuth } from "@/enums/store";
 import { IFStaff } from "@/interfaces/staff";
 import store from "@/store";
 import i18n from "@/i18n";
+import { EIDStaffType } from "@/enums/value_id";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -45,24 +46,25 @@ const routes: Array<RouteRecordRaw> = [
   //     notAllowedRoles: [EIDStaffType.EMPLOYEE, EIDStaffType.UNAPPROVED],
   //   },
   // },
-  // {
-  //   path: ERouter.TABLES,
-  //   name: ERouterName.TABLES,
-  //   component: VTables,
-  //   meta: {
-  //     authRequired: true,
-  //     notAllowedRoles: [EIDStaffType.UNAPPROVED],
-  //   },
-  // },
-  // {
-  //   path: ERouter.TABLE,
-  //   name: ERouterName.TABLE,
-  //   component: VTable,
-  //   meta: {
-  //     authRequired: true,
-  //     notAllowedRoles: [EIDStaffType.UNAPPROVED],
-  //   },
-  // },
+  {
+    path: ERouter.TABLES,
+    name: ERouterName.TABLES,
+    component: VTables,
+    meta: {
+      authRequired: true,
+      notAllowedRoles: [EIDStaffType.UNAPPROVED],
+    },
+  },
+  {
+    path: ERouter.TABLE,
+    name: ERouterName.TABLE,
+    component: VTable,
+    props: true,
+    meta: {
+      authRequired: true,
+      notAllowedRoles: [EIDStaffType.UNAPPROVED],
+    },
+  },
   // {
   //   path: ERouter.STAFFS,
   //   name: ERouterName.STAFFS,

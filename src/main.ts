@@ -9,9 +9,16 @@ import authAxios from "./auth_axios";
 import { EToken } from "./enums/common";
 import { ESAuth } from "./enums/store";
 import { ERouter } from "./enums/routers";
+import "element-ui/lib/theme-chalk/index.css";
+import ElementPlus from "element-plus";
+import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
 const { cookies } = useCookies();
-axios.defaults.baseURL = "https://dongquoctranh.pythonanywhere.com/api/";
+const newLocal = "/";
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "production"
+    ? "https://dongquoctranh.pythonanywhere.com/api/"
+    : "http://127.0.0.1:8000/api/";
 
 // Unauthenticated
 axios.interceptors.request.use(
@@ -65,5 +72,8 @@ authAxios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-createApp(App).use(store).use(router).mount("#app");
+const app = createApp(App);
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component);
+}
+app.use(store).use(router).use(ElementPlus).mount("#app");
